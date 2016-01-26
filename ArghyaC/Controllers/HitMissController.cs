@@ -30,7 +30,13 @@ namespace ArghyaC.Controllers
             list.Add(result);
             Session.Add(_EntriesKey, list);
 
-            return View(new HmGameViewModel { Results = list });
+            var vm = new HmGameViewModel { Results = list };
+            if (result.Hit == 4)
+            {
+                vm.IsGameOver = true;
+                vm.Answer = string.Join("", secret);
+            }
+            return View(vm);
         }
 
         [HttpPost]
