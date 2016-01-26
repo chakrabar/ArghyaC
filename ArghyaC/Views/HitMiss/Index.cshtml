@@ -1,14 +1,24 @@
 ﻿@model ArghyaC.ViewModels.HmGameViewModel
 
-<h2>So, we have a number (4 digit, no repeat) for you. Try to guess it.</h2>
+<h4>So, we have a number (4 digit, no repeat) for you. Try to guess it.</h4>
+<h5>Each try result contains >> <kbd>Hit</kbd>: digits correctly guessed | <kbd>Almost</kbd>: correct digit; wrong position | <kbd>Re-Hit</kbd>: had hit same digit(s) before!</h5>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
+    
+    if (Model.IsGameOver)
+    {
+        <h4 style="color:#65C74A;">Answer : @Model.Answer</h4>
+    }
+    else
+    {
         <h4>The number is _ _ _ _</h4>
-        <hr />
+    }
+    <hr />
+    
+    <div class="form-horizontal">
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
             @Html.LabelFor(model => model.First().Entry, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -48,7 +58,7 @@
             Almost
         </th>
         <th>
-            RepeatHit
+            Re-Hit
         </th>        
     </tr>
 @{int k = 0;}
@@ -71,6 +81,22 @@
             @Html.DisplayFor(modelItem => item.RepeatHit)
         </td>
     </tr>
+}
+
+@if (Model.Results.Count >= 5)
+{
+    using (Html.BeginForm("GiveUp", "HitMiss"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Give up ?" class="btn btn-default" style="background-color:rgba(240, 180, 120, 0.6)" />
+                </div>
+            </div>
+        </div>
+    }
 }
 
 </table>

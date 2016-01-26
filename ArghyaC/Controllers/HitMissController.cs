@@ -32,5 +32,14 @@ namespace ArghyaC.Controllers
 
             return View(new HmGameViewModel { Results = list });
         }
+
+        [HttpPost]
+        public ActionResult GiveUp() //(HitMissViewModel model)
+        {
+            var list = Session[_EntriesKey] == null ? new List<HitMissViewModel>() : (List<HitMissViewModel>)Session[_EntriesKey];
+            var secret = (List<int>)Session[_SecretKey];
+
+            return View("Index", new HmGameViewModel { Results = list, IsGameOver = true, Answer = string.Join("", secret) });
+        }
     }
 }
