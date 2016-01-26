@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HitMissController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuickRouteController.cs" />
     <Compile Include="Controllers\SimpleProxyController.cs" />
@@ -129,6 +130,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ClientUtilities.cs" />
+    <Compile Include="Utilities\HitMissUtilities.cs" />
+    <Compile Include="ViewModels\HitMissViewModel.cs" />
+    <Compile Include="ViewModels\HmGameViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\arghya-custom-blue.css" />
@@ -173,10 +177,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\QuickRoute\Index.cshtml" />
+    <Content Include="Views\HitMiss\Index.cshtml" />
+    <Content Include="Views\HitMiss\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -186,6 +191,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArghyaC.Application\ArghyaC.Application.csproj">
+      <Project>{e73ffa83-b8e0-43dc-8e80-dcc6e01d7339}</Project>
+      <Name>ArghyaC.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ArghyaC.Infrastructure\ArghyaC.Infrastructure.csproj">
       <Project>{3136dea5-054f-49b4-ae74-6a092bbf99b4}</Project>
       <Name>ArghyaC.Infrastructure</Name>

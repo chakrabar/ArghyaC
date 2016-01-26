@@ -1,0 +1,76 @@
+﻿@model ArghyaC.ViewModels.HmGameViewModel
+
+<h2>So, we have a number (4 digit, no repeat) for you. Try to guess it.</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>The number is _ _ _ _</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.First().Entry, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.First().Entry, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.First().Entry, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Entry">Entry</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-number="The field Entry must be a number." data-val-required="The Entry field is required." id="entry" name="entry" type="number">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Entry" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Try" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Tries
+        </th>
+        <th>
+            Entry
+        </th>
+        <th>
+            Hit
+        </th>
+        <th>
+            Almost
+        </th>
+        <th>
+            RepeatHit
+        </th>        
+    </tr>
+@{int k = 0;}
+@foreach (var item in Model.Results)
+{
+    <tr>
+        <td>
+            <text>@(++k)</text>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Almost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RepeatHit)
+        </td>
+    </tr>
+}
+
+</table>
