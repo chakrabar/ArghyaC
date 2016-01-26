@@ -1,0 +1,63 @@
+body {
+	background-color: black;
+	color: white !important;
+	font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
+	border-radius: 10px !important;
+}
+a {
+	color: white !important;
+	text-shadow: 0 0 3px #000;
+}
+a:hover {
+	text-shadow: none;
+	text-decoration: none;
+}
+.links {
+	font-size:0.8em;
+	font-weight: 600;
+	float:right;	
+}
+.round {
+	border-radius: 10px !important;
+	padding: 10px;
+	margin: 10px;
+}
+.banner {
+	background-color: crimson; 
+	padding: 10px 10px 30px 10px;	
+}
+.header {
+	text-shadow: 4px 4px 6px #000;
+	font-size: 1.4em;
+	font-weight: 700;
+}
+#thisIsTheViewHolder {
+	color: #000;
+	font-size: 0.9em;
+}
+.home {
+	background-color: burlywood;
+}
+.about {
+	background-color: lightblue;
+}
+.training {
+	background-color: lightgreen;
+}
+.code {
+	background-color: midnightblue;
+	color: lightgray;
+	/*background-color: black;
+	color: coral;*/
+	font-family: consolas;
+	margin: 10px;
+	padding: 10px;
+	overflow: auto;
+}
+
+.inline-code {
+	background-color: #2d61a6;
+	color: #ffffff;
+	padding: 5px;
+	font-weight: 200;
+}

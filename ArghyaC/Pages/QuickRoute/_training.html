@@ -1,0 +1,236 @@
+<div class="training round">
+    <link rel="stylesheet" href="Content/arghya-custom-blue.css" />
+	<script src="Scripts/qr/highlight.pack.js"></script>
+	<h2>TRAINING</h2>
+  <h3>How you can setup QuickRoute for your application?</h3>
+  
+  <p>Setting up <i>QuickRoute</i> for your application is super easy. Just follow these steps</p>
+  
+  <ol>
+    <li>Create a base/master page for your application</li>
+    <li>Add a &lt;script&gt; link to QuickRoute.js JavaScript file. The current is version 0.8 (Get the <a href="https://github.com/chakrabar/QuickRoute/blob/master/quickRoute-0.8.js">
+    Source Code</a> or link from <a href="https://cdn.rawgit.com/chakrabar/QuickRoute/master/quickRoute-0.8.min.js">CDN</a>.)</li>
+    <li>Inside a script tag add your routes, initialize the routing module.</li>
+  </ol>
+  And you are good to go! Yes, that easy :)
+  
+  <p>Let's look at a real code example. Rather than taking an imaginary example, why not just look at the source code of this ver site,
+     which is built using the QuickRoute.
+  </p>
+  
+  <!--code I start-->
+	<div>
+		<pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;QuickRoute&lt;/title&gt; &lt;!--#### this will be used as default route ####--&gt;
+    &lt;script type="text/javascript" src="https://cdn.rawgit.com/chakrabar/QuickRoute/master/quickRoute-0.8.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt; //&lt;!--#### add your routes and initialize ####--&gt;
+      router.add('home', 'views/_home.html', 'ROUTE : Home'); //&lt;!--#### adding route as hash, view, title ####--&gt;
+      router.add({'hash':'about', 'view':'views/_about.html', 'title':'ROUTE : About'}); //&lt;!--#### adding route as object ####--&gt;
+      router.add('training', 'views/_training.html'); //&lt;!--#### adding route without title (will use default) ####--&gt;
+      router.add('na', 'views/_notThere.html'); //&lt;!--#### does not exist yet ####--&gt;
+      router.init('thisIsTheViewHolder'); //&lt;!--#### view holder id, use true for local views ####--&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;span class="links"&gt; 
+      &lt;a href="#home"&gt;Home&lt;a&gt; |  &lt;a href="#about"&gt;About&lt;a&gt; | &lt;a href="#training"&gt;Training&lt;a&gt; | &lt;a href="#na"&gt;Events&lt;a&gt;
+    &lt;/span&gt;
+    &lt;div id="thisIsTheViewHolder"&gt;View loads here...&lt;/div&gt; &lt;!--#### THIS IS REQUIRED ####--&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+		</code></pre>
+	</div>
+  <!--code I end-->
+  
+  <p>If you don't use <strong>jQuery</strong> in your site already, use the following code. QuickRoute uses jQuery behind the scenes. So, if 
+     it is not already added, QuickRoute will go grab it from a public CDN. Basically, you do not have to worry about that. You just add 
+     a reference to the QuickRoute JavaSCript file. You can either create a local copy from the source provided above, or link to the public
+     CDN provided above.</p>
+     
+  <p>Now, you have to add your routes. Inside a script tag, (or a separate JavaScript file) call <code>router.add()</code> and provide 
+     the route details, viz. three texts denoting</p>
+     
+  <ul>
+    <li>The uri hash</li>
+    <li>The view to be used (an element id for embeded view, an url path for remote view file)</li>
+    <li>An optional title text</li>
+  </ul>
+  
+  Example: <pre><code class="language-javascript">router.add('home', 'views/_home.html', 'ROUTE : Home'); //uri-hash, view, title</code></pre> <br/>
+  
+  Notice that, you can also add them as a route object 
+  <pre><code class="language-javascript">router.add({'hash':'about', 'view':'views/_about.html', 'title':'ROUTE : About'});</code></pre>
+  
+  <br /><br/>Once you have added all your routes, call <code class="inline-code">router.init()</code> with the following details
+  
+  <ul>
+    <li>The element id (generally a div) where the views will be rendered</li>
+    <li>An optional <code>boolean</code> value indicating whether views are embeded or remote (default is remote views, use <code>true</code> for embeded)</li>
+  </ul>
+  
+  <p>
+    If you are already using jQuery in your site (like, who doesn't?) you can simply wrap the route configuration code inside the 
+    <code class="inline-code">$(document).ready()</code> function.
+  </p>
+  
+  <!--code II start-->
+	<div class="language-html">
+		<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;QuickRoute&lt;/title&gt; &lt;!--#### this will be used as default route ####--&gt;
+    &lt;script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="https://cdn.rawgit.com/chakrabar/QuickRoute/master/quickRoute-0.8.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt; //&lt;!--#### add your routes and initialize ####--&gt;
+      $(document).ready(function() { &lt;!--#### wrap this code in document ready, IF you already have jQuery ####--&gt;
+        router.add('home', 'views/_home.html', 'ROUTE : Home'); //&lt;!--#### adding route as hash, view, title ####--&gt;
+        router.add({'hash':'about', 'view':'views/_about.html', 'title':'ROUTE : About'}); //&lt;!--#### adding route as object ####--&gt;
+        router.add('training', 'views/_training.html'); //&lt;!--#### adding route without title (will use default) ####--&gt;
+        router.add('na', 'views/_notThere.html'); //&lt;!--#### does not exist yet ####--&gt;
+        router.init('thisIsTheViewHolder'); //&lt;!--#### view holder id, use true for local views ####--&gt;
+      });
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;span class="links"&gt; 
+      &lt;a href="#home"&gt;Home&lt;a&gt; |  &lt;a href="#about"&gt;About&lt;a&gt; | &lt;a href="#training"&gt;Training&lt;a&gt; | &lt;a href="#na"&gt;Events&lt;a&gt;
+    &lt;/span&gt;
+    &lt;div id="thisIsTheViewHolder"&gt;View loads here...&lt;/div&gt; &lt;!--#### THIS IS REQUIRED ####--&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+		</code></pre>
+	</div>  
+	<!--code II end-->
+	<br/>
+	<p>
+		<strong>The Code:</strong>
+		<br/>
+		And here is the actual code (lite version 0.8) for a quick reference. 
+	</p>
+	<!--code III start-->
+	<pre><code class="language-javascript">
+/*! quickRoute v0.8 | (c) 2015 Arghya C | https://github.com/chakrabar */
+var router = (function() {
+	var routes = [];
+	var viewContentHolder = '';
+	var useLocalInlineView = false;
+	var defaultTitle = '';
+	var errorPanel = '&lt;div style="border:2px solid red;color: red;padding:10px;margin:10px;border-radius:10px;"&gt;&lt;strong&gt;An error occurred while loading view!&lt;br/&gt;&lt;br/&gt;Server responded with : [##code##] - ##msg##&lt;/strong&gt;&lt;/div&gt;'
+	//==============================>> utilities >>==========================
+	function hasValue(obj) {
+		return (typeof obj !== 'undefined' && obj != null && obj.length != 0);
+	}
+	function logException (ex) {
+		if (window.console) {
+			var logMsg = '';
+			if (ex.message) 
+				logMsg += ex.message;
+			if (ex.stack) 
+				logMsg += ' | stack: ' + ex.stack;
+			console.log(logMsg);
+		}
+		else
+			throw ex;
+	}
+	//====================>> route functions >>=====================
+	function hideAll() {
+		for (var i = 0; i < routes.length; i++) {
+			$('#' + routes[i]['view']).hide();
+		}
+	}
+	function initializeRoutes() {
+		if (typeof jQuery == 'undefined') {
+			var jqScript = document.createElement('script');
+			jqScript.type = "text/javascript";
+			jqScript.src = "https://code.jquery.com/jquery-1.11.3.min.js";
+			jqScript.onload = updateRoute;
+			document.getElementsByTagName('head')[0].appendChild(jqScript);
+		}
+		else
+			updateRoute();
+	}
+	function updateRoute() {
+		if (routes.length == 0)
+			return;		
+		var uriHash = window.location.hash;
+		var found = false;
+		for (var i = 0; i < routes.length; i++) {
+			if (uriHash.toLowerCase() == '#' + routes[i]['hash']) { //uriHash.contains(routes[i]['hash'])
+				useLocalInlineView ? displayView(routes[i]['view']) : renderView(routes[i]['view']);			
+				found = true;
+				if (typeof routes[i]['title'] === 'string')
+					document.title = routes[i]['title'];
+				else
+					document.title = defaultTitle;
+				break;
+			}
+		}
+		if (!found) {
+			useLocalInlineView ? displayView(routes[0]['view']) : renderView(routes[0]['view']);
+			document.title = defaultTitle;
+		}
+	}
+	function displayView(elementId) {
+		hideAll();
+		$('#' + elementId).show();
+	}
+	function renderView(filePath) {
+		try {
+			$.get(filePath)
+			.done(function(data){
+				if (hasValue(data))
+					$('#' + viewContentHolder).html(data);
+				else
+					throw new Error('Server did not send any html for view!');
+			})
+			.fail(function(err) {
+				var errorHtml = errorPanel.replace('##code##', err.status).replace('##msg##', err.statusText);
+				$('#' + viewContentHolder).html(errorHtml);
+			});
+		} catch(e) {
+			logException(e);
+		}
+	}
+	//====================>> public functions >>=====================
+	return {
+		add: function(key, view, title) {
+			if (arguments.length == 2 || arguments.length == 3)
+				routes.push({'hash': key.toLowerCase(), 'view': view, 'title': title});
+			else if (arguments.length == 1 && typeof key == 'object' && key.hasOwnProperty('hash') && key.hasOwnProperty('view'))
+				routes.push(key);
+			else
+				throw new TypeError('Invalid route configuration passed to add.');
+		},
+		init: function(viewContainerId, isLocalView) {
+			if (typeof viewContainerId === 'string')
+				viewContentHolder = viewContainerId;
+			if (typeof isLocalView === 'boolean')
+				useLocalInlineView = isLocalView;
+			defaultTitle = document.title;
+			initializeRoutes();
+		},
+		route: function() {
+			return updateRoute();
+		}
+	};   
+})();
+window.onhashchange = router.route;
+
+	</code></pre>
+	<!--code III end-->
+	<script>
+		//Prism.highlightAll();
+		$(document).ready(function() {
+		$('pre code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+		});
+	</script>
+	<span class="links"><strong>&copy;</strong> ArghyaC 2015</span>
+	<br/>
+</div>
+	

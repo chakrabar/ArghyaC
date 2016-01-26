@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="dcterms.rightsHolder" content="Arghya C | https://github.com/chakrabar">
+    <meta name="dcterms.dateCopyrighted" content="2015">
+    <title>QuickRoute</title> <!--#### this will be used as default route ####-->
+    <link rel="stylesheet" type="text/css" href="Content/quickroute.css" />
+    <!--<script src="https://code.jquery.com/jquery-1.11.3.js"></script> <!--#### this is OPTIONAL, QuickRoute will get it ;) ####-->
+    <script type="text/javascript" src="https://cdn.rawgit.com/chakrabar/QuickRoute/master/dist/quickRoute-0.8.min.js"></script> <!--#### this is REQUIRED, obviously! ####-->
+    <script>
+    //<!--#### add your routes and initialize ####-->
+    //$(document).ready(function() { <!--#### wrap this code in document ready, IF you already have jQuery ####-->
+    router.add('home', 'Pages/QuickRoute/_home.html', 'ROUTE : Home'); //<!--#### adding route as hash, view, title ####-->
+    router.add({ 'hash': 'about', 'view': 'Pages/QuickRoute/_about.html', 'title': 'ROUTE : About' }); //<!--#### adding route as object ####-->
+    router.add('training', 'Pages/QuickRoute/_training.html'); //<!--#### adding route without title (will use default) ####-->
+    router.add('na', 'Pages/QuickRoute/_notThere.html'); //<!--#### does not exist yet ####-->
+    router.init('thisIsTheViewHolder'); //<!--#### view holder id, use true for local views ####-->
+    //});
+    </script>
+</head>
+<body>
+    <div class="banner round">
+        <!--just to add a simple header & menu -->
+        <span class="header">Quick Route demo</span>
+        <br />
+        <span class="links">
+            <a href="#home">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="#training">Training</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="#na">Events</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="#about">About</a>
+        </span>
+    </div>
+    <div id="thisIsTheViewHolder">View loads here...</div> <!--#### THIS IS REQUIRED ####-->
+</body>
+</html>
