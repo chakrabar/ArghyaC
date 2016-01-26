@@ -1,4 +1,15 @@
 # Windows image file caches
+# =======chakrabar=========
+# =========================
+**/bin/**
+**/obj/**
+packages/
+*.v12.suo
+
+# =========================
+# Git AutoCreated ignores v
+# =========================
+
 Thumbs.db
 ehthumbs.db
 
