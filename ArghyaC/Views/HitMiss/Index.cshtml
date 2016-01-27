@@ -4,7 +4,7 @@
 
 @model ArghyaC.ViewModels.HmGameViewModel
 
-<h4>So, we have a number (4 digit, no repeat) for you. Try to guess it.</h4>
+<h4>So, we have a number (4 digit, no repetition) for you. Try to guess it.</h4>
 <h5>Each try result contains >> <kbd>Hit</kbd>: digit(s) correctly guessed | <kbd>Almost</kbd>: correct digit(s); wrong position | <kbd>Re-Hit</kbd>: had hit same digit(s) before!</h5>
 
 @using (Html.BeginForm())
@@ -34,7 +34,7 @@
                 </div>
             </div>*@
             <div class="form-group">
-                <label class="control-label col-md-2" for="Entry">Entry</label>
+                <label class="control-label col-md-2" for="Entry">Guess</label>
                 <div class="col-md-10">
                     <input class="form-control text-box single-line" data-val="true" data-val-number="The field Entry must be a number." data-val-required="The Entry field is required." id="entry" name="entry" type="number">
                     <span class="field-validation-valid text-danger" data-valmsg-for="Entry" data-valmsg-replace="true"></span>
@@ -43,7 +43,23 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Try" class="btn btn-default" />
+                    <input type="submit" value="Try &raquo;" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@if (Model.Results.Count >= 5 && !Model.IsGameOver)
+{
+    using (Html.BeginForm("GiveUp", "HitMiss"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Give up ?" class="btn btn-warning" />
                 </div>
             </div>
         </div>
@@ -89,21 +105,4 @@
         </td>
     </tr>
 }
-
-@if (Model.Results.Count >= 5 && !Model.IsGameOver)
-{
-    using (Html.BeginForm("GiveUp", "HitMiss"))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Give up ?" class="btn btn-default" style="background-color:rgba(240, 180, 120, 0.6)" />
-                </div>
-            </div>
-        </div>
-    }
-}
-
 </table>
