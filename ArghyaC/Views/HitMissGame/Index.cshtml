@@ -4,8 +4,12 @@
 
 @model ArghyaC.ViewModels.HmGameViewModel
 
-<h4>So, we have a number (4 digit, no repetition) for you. Try to guess it.</h4>
-<h5>Each try result contains >> <kbd>Hit</kbd>: digit(s) correctly guessed | <kbd>Found</kbd>: correct digit(s); wrong position | <kbd>Re-Hit</kbd>: had hit same digit(s) before!</h5>
+<h4>There is a <abbr title="Like 4792, 0148 etc.">number</abbr> for you. 4 digit, no repetition. Try to guess it.</h4>
+<p class="bg-info">
+    Each guess result contains - 
+    <kbd>[<abbr title="e.g. Secret = 2017, Guess = 1037 => Hit = 2">Hit</abbr>]</kbd>: correct digit(s), correct position | 
+    <kbd>[<abbr title="e.g. Secret = 2017, Guess = 1037 => Found = 1">Found</abbr>]</kbd>: correct digit(s); wrong position | 
+    <kbd>[Re-Hit]</kbd>: had hit same digit(s) before!</p>
 <br />
 
 @using (Html.BeginForm())
@@ -19,7 +23,7 @@
     }
     else
     {
-        <h4>The number is _ _ _ _</h4>
+        <h4>The number is _ _ _ _ <small>&nbsp;(repititions are allowed in guess-number)</small></h4>
         <hr />
     }
 
