@@ -4501,8 +4501,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #0c0b8a; /*#222222;*/
+  border-color: #0b1155; /*#080808;*/
 }
 
 .navbar-inverse .navbar-brand {
@@ -4933,8 +4933,8 @@ a.list-group-item.active > .badge,
   font-size: 21px;
   font-weight: 200;
   line-height: 2.1428571435;
-  color: inherit;
-  background-color: #eeeeee;
+  color: #fff; /*inherit;*/
+  background-color: #428bca; /*#eeeeee;*/
 }
 
 .jumbotron h1 {
