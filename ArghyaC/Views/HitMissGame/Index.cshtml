@@ -18,12 +18,12 @@
     
     if (Model.GameState != ArghyaC.ViewModels.GameState.GameOn)
     {
-        <span class="bg-warning"><strong>@Html.Raw(Model.GameState == ArghyaC.ViewModels.GameState.GaveUp ? "You lost!!" : "You won! Yay!!")</strong></span>
-        <h4 style="color:#65C74A;">Answer : @Model.Answer</h4>        
+        <span class="bg-warning"><strong>@Html.Raw(Model.GameState == ArghyaC.ViewModels.GameState.GaveUp ? "You lost!!" : "Yay! You won!!")</strong></span>
+        <h4 style="color:#65C74A;display:inline;">Answer : @Model.Answer</h4> <br /><br/>
     }
     else
     {
-        <h4>The number is _ _ _ _ <small>&nbsp;(repititions are allowed in guess-number)</small></h4>
+        <h4>The number is _ _ _ _ <small>&nbsp;(repititions are allowed in guess-number e.g. 0250)</small></h4>
         <hr />
     }
 
@@ -43,7 +43,7 @@
                 <label class="control-label col-md-2" for="Entry">Guess</label>
                 <div class="col-md-10">
                     <input class="form-control text-box single-line" data-val="true" data-val-number="The field Entry must be a number."
-                           data-val-required="The Entry field is required." id="entry" name="entry" type="number" min="0" max="9999">
+                           data-val-required="The Entry field is required." id="entry" name="entry" type="number" min="0" max="9999" autofocus>
                     <span class="field-validation-valid text-danger" data-valmsg-for="Entry" data-valmsg-replace="true"></span>
                 </div>
             </div>
