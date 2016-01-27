@@ -5,24 +5,26 @@
 @model ArghyaC.ViewModels.HmGameViewModel
 
 <h4>So, we have a number (4 digit, no repetition) for you. Try to guess it.</h4>
-<h5>Each try result contains >> <kbd>Hit</kbd>: digit(s) correctly guessed | <kbd>Almost</kbd>: correct digit(s); wrong position | <kbd>Re-Hit</kbd>: had hit same digit(s) before!</h5>
+<h5>Each try result contains >> <kbd>Hit</kbd>: digit(s) correctly guessed | <kbd>Found</kbd>: correct digit(s); wrong position | <kbd>Re-Hit</kbd>: had hit same digit(s) before!</h5>
+<br />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    if (Model.IsGameOver)
+    if (Model.GameState != ArghyaC.ViewModels.GameState.GameOn)
     {
-        <h4 style="color:#65C74A;">Answer : @Model.Answer</h4>
+        <span class="bg-warning"><strong>@Html.Raw(Model.GameState == ArghyaC.ViewModels.GameState.GaveUp ? "You lost!!" : "You won! Yay!!")</strong></span>
+        <h4 style="color:#65C74A;">Answer : @Model.Answer</h4>        
     }
     else
     {
         <h4>The number is _ _ _ _</h4>
+        <hr />
     }
-    <hr />
-    
-    if (!Model.IsGameOver)
-    { 
+
+    if (Model.GameState == ArghyaC.ViewModels.GameState.GameOn)
+    {
         <div class="form-horizontal">
         
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -36,7 +38,8 @@
             <div class="form-group">
                 <label class="control-label col-md-2" for="Entry">Guess</label>
                 <div class="col-md-10">
-                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field Entry must be a number." data-val-required="The Entry field is required." id="entry" name="entry" type="number">
+                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field Entry must be a number."
+                           data-val-required="The Entry field is required." id="entry" name="entry" type="number" min="0" max="9999">
                     <span class="field-validation-valid text-danger" data-valmsg-for="Entry" data-valmsg-replace="true"></span>
                 </div>
             </div>
@@ -48,18 +51,22 @@
             </div>
         </div>
     }
+    else
+    {
+        //winning message
+    }
 }
 
-@if (Model.Results.Count >= 5 && !Model.IsGameOver)
+@if (Model.Results.Count >= 5 && Model.GameState == ArghyaC.ViewModels.GameState.GameOn)
 {
-    using (Html.BeginForm("GiveUp", "HitMiss"))
+    using (Html.BeginForm("GiveUp", "HitMissGame"))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Give up ?" class="btn btn-warning" />
+                    <input type="submit" value="Give up?" class="btn btn-warning" />
                 </div>
             </div>
         </div>
@@ -72,13 +79,13 @@
             Tries
         </th>
         <th>
-            Entry
+            Guess
         </th>
         <th>
             Hit
         </th>
         <th>
-            Almost
+            Found
         </th>
         <th>
             Re-Hit
@@ -106,3 +113,17 @@
     </tr>
 }
 </table>
+@if (Model.GameState != ArghyaC.ViewModels.GameState.GameOn)
+{
+    using (Html.BeginForm("NewGame", "HitMissGame"))
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="New Game" class="btn btn-info btn-xs" style="float:right;" />
+                </div>
+            </div>
+        </div>
+    }
+}
+@*<a class="btn btn-info btn-xs" href="/HitMissGame/NewGame" style="float:right;">New Game</a>*@
