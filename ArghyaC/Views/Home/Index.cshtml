@@ -1,31 +1,41 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>ArghyaC</h1>
+    <p class="lead">
+        This site is created and maintained by Arghya C. Built on ASP.NET, JavaScript &amp; loads of open source libraries &amp; hosted on Azure.
+    </p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-sm">Learn more &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>QuickRoute</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            It's a very simple, light weight, client-side JavaScript routing framework. With inclusion of just one tiny file, you can have 
+            client-side routing with just few (literally!) lines of code. The library works based on #uri-hash. It uses jQuery internally.
+            Go to the 'QuickRoute' menu for quick demo and tutorial.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="/QuickRoute" target="_blank">View Demo &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>SimpleProxy</h2>
+        <p>
+            A simple (we said it!) soft proxy. Want to visit any web page or web service? Just hit this proxy address with your uri as parameter.
+            It let' you browse / get service data without leaving the proxy site!
+        </p>
+        <p><a class="btn btn-default" href="/SimpleProxy?uri=https://en.wikipedia.org" target="_blank">Try it &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>HitMiss Game</h2>
+        <p>
+            It's a challenging mind game. 
+            It gives you a random 4-digit number, with no repetition. You just have to guess it. Everytime you guess a number, it tells you how many 
+            digit(s) you geessed correctly [Hit], how many correct digit(s) but in wrong place [Almost] &amp; how many hit are being repeated [Re-Hit]
+            i.e. you already had the same hit(s) in some previous guesses!
+        </p>
+        <p><a class="btn btn-default" href="/HitMiss" target="_blank">Play &raquo;</a></p>
     </div>
 </div>
