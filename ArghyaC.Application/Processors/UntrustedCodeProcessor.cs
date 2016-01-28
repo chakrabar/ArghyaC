@@ -32,8 +32,6 @@ namespace ArghyaC.Application.Processors
             //Now we have everything we need to create the AppDomain, so let's create it.
             AppDomain newDomain = AppDomain.CreateDomain("UntrustedCodeProcessor", null, adSetup, permSet, fullTrustAssembly);
 
-            //newDomain.CreateInstance("", )
-
             //Use CreateInstanceFrom to load an instance of the Sandboxer class into the
             //new AppDomain. 
             ObjectHandle handle = Activator.CreateInstanceFrom(
@@ -59,6 +57,44 @@ namespace ArghyaC.Application.Processors
             {
                 //Now invoke the method.
                 T retVal = (T)method.Invoke(null, parameters);
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                var expMsg = string.Empty;
+                // When we print informations from a SecurityException extra information can be printed if we are 
+                //calling it with a full-trust stack.
+                (new PermissionSet(PermissionState.Unrestricted)).Assert();
+                if (ex is SecurityException || ex is TargetInvocationException)
+                {
+                    expMsg = "SecurityException caught:\n" + ex.ToString();
+                }
+                else
+                {
+                    expMsg = "Exception :\n" + ex.ToString();
+                }
+                CodeAccessPermission.RevertAssert();
+                throw new ApplicationException(expMsg);
+            }
+        }
+
+        public static T GetResultQuickNeedsWork<T>(string untrustedAssemblyDirectory, string assemblyFullPath, string className, string methodName, object[] methodParameters)
+        {
+            try
+            {
+                AppDomainSetup adSetup = new AppDomainSetup();
+                adSetup.ApplicationBase = Path.GetFullPath(untrustedAssemblyDirectory);
+
+                PermissionSet permSet = new PermissionSet(PermissionState.None);
+                permSet.AddPermission(new SecurityPermission(SecurityPermissionFlag.Execution));
+                permSet.AddPermission(new FileIOPermission(FileIOPermissionAccess.AllAccess, untrustedAssemblyDirectory)); //** watch out
+
+                AppDomain newDomain = AppDomain.CreateDomain("UntrustedCodeProcessor", null, adSetup, permSet, null);
+
+                var objectHandler = newDomain.CreateInstanceFrom(assemblyFullPath, className);
+
+                var methodInfo = objectHandler.Unwrap().GetType().GetMethod(methodName);
+                T retVal = (T)methodInfo.Invoke(null, methodParameters);
                 return retVal;
             }
             catch (Exception ex)
