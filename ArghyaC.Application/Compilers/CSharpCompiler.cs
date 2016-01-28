@@ -35,7 +35,7 @@ namespace ArghyaC.Application.Compilers
                     for (int i = 0; i < totalErrors; i++)
                     {
                         var error = errors[i];
-                        allErrors.Add(string.Format("{0} : {1} at ({2})", error.ErrorNumber, error.ErrorText, error.Line));
+                        allErrors.Add(string.Format("{0} : {1}, @ line ({2})", error.ErrorNumber, error.ErrorText, error.Line));
                     }
                 }
                 return new CompileResult
