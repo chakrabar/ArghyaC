@@ -21,7 +21,7 @@ namespace ArghyaC.Application.Compilers
                 System.IO.File.WriteAllText(fileName, code);
                                 
                 var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } });
-                var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll" }, assemblyName, true); //foo.exe
+                var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "System.dll" }, assemblyName, false); //foo.exe, true
                 parameters.GenerateExecutable = false; //true
 
                 CompilerResults results = csc.CompileAssemblyFromSource(parameters, code);

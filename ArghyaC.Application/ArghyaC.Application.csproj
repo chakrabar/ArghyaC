@@ -48,6 +48,7 @@
     <Compile Include="Compilers\CSharpCompiler.cs" />
     <Compile Include="Helpers\CodeRunner.cs" />
     <Compile Include="Helpers\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Processors\SimpleCodeRunner.cs" />
     <Compile Include="Processors\UntrustedCodeProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

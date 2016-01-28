@@ -1,6 +1,5 @@
-﻿using ArghyaC.Application.Compilers;
-using ArghyaC.Application.Helpers;
-using ArghyaC.ViewModels;
+﻿using ArghyaC.Application.Helpers;
+using ArghyaC.Domain.Entities;
 using System.Web.Mvc;
 
 namespace ArghyaC.Controllers
@@ -9,7 +8,7 @@ namespace ArghyaC.Controllers
     {
         public ActionResult Index()
         {
-            return View(new HmGameViewModel());
+            return View(new CodeRunResult());
         }
 
         [HttpPost]
@@ -17,7 +16,7 @@ namespace ArghyaC.Controllers
         {
             var result = CodeRunner.CompileAndRun(code);
 
-            return View(new HmGameViewModel());
+            return View(new CodeRunResult());
         }
     }
 }

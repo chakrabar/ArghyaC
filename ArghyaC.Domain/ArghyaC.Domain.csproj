@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CodeRunResult.cs" />
     <Compile Include="Entities\CompileResult.cs" />
+    <Compile Include="Enums\CodeCompState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
