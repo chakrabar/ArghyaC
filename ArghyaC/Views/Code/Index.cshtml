@@ -82,3 +82,18 @@
         }
     </table>
 }
+
+@if (Model.State == ArghyaC.Domain.Enums.CodeCompState.DidNotCompile)
+{
+<p>
+    <strong><u>Compilation errors:</u></strong>
+    <ol>
+        @foreach (var ce in Model.CompileErrors)
+        {
+            <li>
+                @Html.DisplayFor(modelItem => ce)
+            </li>
+        }
+    </ol>
+</p>
+}

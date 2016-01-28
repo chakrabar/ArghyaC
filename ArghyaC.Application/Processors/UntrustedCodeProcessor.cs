@@ -79,7 +79,7 @@ namespace ArghyaC.Application.Processors
                 // When we print informations from a SecurityException extra information can be printed if we are 
                 //calling it with a full-trust stack.
                 (new PermissionSet(PermissionState.Unrestricted)).Assert();
-                if (ex is SecurityException || ex is TargetInvocationException)
+                if (ex is SecurityException) // || ex is TargetInvocationException << even for nulls!!
                 {
                     expMsg = "SecurityException caught:\n" + ex.ToString();
                 }

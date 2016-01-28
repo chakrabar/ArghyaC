@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security;
 
 namespace ArghyaC.Application.Helpers
 {
@@ -78,6 +80,10 @@ namespace ArghyaC.Application.Helpers
                 }
                 catch(Exception ex)
                 {
+                    if (ex.Message.Contains("SecurityException")) //this is BAD!!
+                    {
+                        throw;
+                    }
                     outcome = -100;
                 }
                 sw.Stop(); //TODO: this time is not correct. includes setup & teardown times
