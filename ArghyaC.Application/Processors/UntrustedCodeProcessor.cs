@@ -43,7 +43,7 @@ namespace ArghyaC.Application.Processors
             //untrusted code.
             UntrustedCodeProcessor newDomainInstance = (UntrustedCodeProcessor)handle.Unwrap();
             var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
-            AppDomain.Unload(newDomain);
+            AppDomain.Unload(newDomain); //otherwise root directory cannot be deleted!
 
             return details;
         }

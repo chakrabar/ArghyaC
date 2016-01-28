@@ -8,7 +8,7 @@ namespace ArghyaC.Application.Compilers
 {
     public class CSharpCompiler
     {
-        string codeFolder = @"C:\Arghya\Repos\ArghyaC\SubmittedCodes"; //not used for Azure
+        string codeFolder = @"C:\Arghya\Repos\ArghyaC\SubmittedCodes"; //cannot be used for Azure
 
         public CompileResult Compile(string code, string baseDirectory)
         {

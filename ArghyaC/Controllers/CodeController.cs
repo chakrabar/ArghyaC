@@ -1,6 +1,6 @@
 ﻿using ArghyaC.Application.Helpers;
 using ArghyaC.Domain.Entities;
-using System.IO;
+using ArghyaC.Infrastructure.Utilities;
 using System.Web.Mvc;
 
 namespace ArghyaC.Controllers
@@ -18,20 +18,8 @@ namespace ArghyaC.Controllers
             var timestamp = System.DateTime.Now.ToString("yyyyMMdd_hh.mm.ss.fffffff");
             var tempFolder = Server.MapPath("~/SubmittedCode/Temp_" + timestamp);
 
-            if (!Directory.Exists(tempFolder))
-                Directory.CreateDirectory(tempFolder);
-
-            var result = CodeRunner.CompileAndRun(code, tempFolder);
-
-            if (Directory.Exists(tempFolder))
-            {
-                foreach (var file in Directory.EnumerateFiles(tempFolder))
-                {
-                    System.IO.File.SetAttributes(file, FileAttributes.Normal);
-                    System.IO.File.Delete(file);
-                }
-                Directory.Delete(tempFolder, true);
-            }
+            var result = FileUtilities.TempCreateDirAndExecute<CodeRunResult>(tempFolder, 
+                () => { return CodeRunner.CompileAndRun(code, tempFolder); });
 
             return View(result);
         }
