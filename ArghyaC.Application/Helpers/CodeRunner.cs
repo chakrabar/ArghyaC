@@ -13,12 +13,12 @@ namespace ArghyaC.Application.Helpers
         const string _entryPoint = "Main";
         private static object[] _parameters = { "arghya" };
 
-        public static CodeRunResult CompileAndRun(string code)
+        public static CodeRunResult CompileAndRun(string code, string baseDirectory)
         {
             var result = new CodeRunResult();
             try
             {
-                var compilationResult = new CSharpCompiler().Compile(code);
+                var compilationResult = new CSharpCompiler().Compile(code, baseDirectory);
 
                 if (compilationResult.IsCompiled)
                 {

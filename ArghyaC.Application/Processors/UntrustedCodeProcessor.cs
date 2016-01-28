@@ -42,8 +42,10 @@ namespace ArghyaC.Application.Processors
             //Unwrap the new domain instance into a reference in this domain and use it to execute the 
             //untrusted code.
             UntrustedCodeProcessor newDomainInstance = (UntrustedCodeProcessor)handle.Unwrap();
-            return newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
-            //simplify?? NewAppDomain.CreateInstanceFrom(@"c:\HelloWorldRemote.exe", "HelloWorldRemote.RemoteObject");
+            var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
+            AppDomain.Unload(newDomain);
+
+            return details;
         }
 
         private T ExecuteUntrustedCode<T>(string assemblyName, string typeName, string entryPoint, Object[] parameters)

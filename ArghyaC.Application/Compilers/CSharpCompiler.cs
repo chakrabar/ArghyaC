@@ -8,10 +8,11 @@ namespace ArghyaC.Application.Compilers
 {
     public class CSharpCompiler
     {
-        const string codeFolder = @"C:\Arghya\Repos\ArghyaC\SubmittedCodes";
+        string codeFolder = @"C:\Arghya\Repos\ArghyaC\SubmittedCodes"; //not used for Azure
 
-        public CompileResult Compile(string code)
+        public CompileResult Compile(string code, string baseDirectory)
         {
+            codeFolder = baseDirectory;
             var timestamp = System.DateTime.Now.ToString("yyyyMMdd_hh.mm.ss.fffffff");
             var assemblyName = System.IO.Path.Combine(codeFolder, "Crap_" + timestamp + ".dll");
             var fileName = System.IO.Path.Combine(codeFolder, "Code_" + timestamp + ".cs");
