@@ -29,6 +29,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ArghyaC28Jan2016.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -40,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compilers\CSharpCompiler.cs" />
+    <Compile Include="Helpers\CodeRunner.cs" />
     <Compile Include="Helpers\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Processors\UntrustedCodeProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +56,9 @@
       <Project>{5eb9f911-6f9f-4a6d-893e-ef25026ab9c9}</Project>
       <Name>ArghyaC.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ArghyaC28Jan2016.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

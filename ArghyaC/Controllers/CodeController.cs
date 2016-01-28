@@ -1,4 +1,5 @@
 ﻿using ArghyaC.Application.Compilers;
+using ArghyaC.Application.Helpers;
 using ArghyaC.ViewModels;
 using System.Web.Mvc;
 
@@ -14,7 +15,7 @@ namespace ArghyaC.Controllers
         [HttpPost]
         public ActionResult Index(string code)
         {
-            var result = new CSharpCompiler().Compile(code);
+            var result = CodeRunner.CompileAndRun(code);
 
             return View(new HmGameViewModel());
         }
