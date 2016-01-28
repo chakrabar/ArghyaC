@@ -45,8 +45,8 @@ namespace ArghyaC.Application.Processors
                 //Unwrap the new domain instance into a reference in this domain and use it to execute the 
                 //untrusted code.
                 UntrustedCodeProcessor newDomainInstance = (UntrustedCodeProcessor)handle.Unwrap();
-                var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
 
+                var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
                 return details;
             }
             catch(Exception ex)
