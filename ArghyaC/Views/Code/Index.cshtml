@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "C# Code Writer";
+}
+
+@model ArghyaC.ViewModels.HmGameViewModel
+
+<p>
+    <h4>Write your C# code below</h4>
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group col-md-12">
+            <textarea data-val="true" class="form-control" rows="20" style="max-width:100% !important;"
+                      data-val-required="The Entry field is required." id="code" name="code">
+//Do NOT change the namespace &amp; class name `Program` and `Main` method signature
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CodeComp
+{
+    public class Program
+    {
+        public int Main(string name)
+        {
+            return 0;
+        }
+    }
+    //other classes if required
+}
+            </textarea>
+            <span class="field-validation-valid text-danger" data-valmsg-for="Entry" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Run &raquo;" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

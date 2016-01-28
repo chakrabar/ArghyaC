@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CodeController.cs" />
     <Compile Include="Controllers\HitMissGameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuickRouteController.cs" />
@@ -179,6 +180,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\QuickRoute\Index.cshtml" />
     <Content Include="Views\HitMissGame\Index.cshtml" />
+    <Content Include="Views\Code\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -194,6 +196,10 @@
     <ProjectReference Include="..\ArghyaC.Application\ArghyaC.Application.csproj">
       <Project>{e73ffa83-b8e0-43dc-8e80-dcc6e01d7339}</Project>
       <Name>ArghyaC.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ArghyaC.Domain\ArghyaC.Domain.csproj">
+      <Project>{5eb9f911-6f9f-4a6d-893e-ef25026ab9c9}</Project>
+      <Name>ArghyaC.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\ArghyaC.Infrastructure\ArghyaC.Infrastructure.csproj">
       <Project>{3136dea5-054f-49b4-ae74-6a092bbf99b4}</Project>
