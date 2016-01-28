@@ -1,7 +1,9 @@
 ﻿using ArghyaC.Application.Compilers;
 using ArghyaC.Application.Processors;
+using ArghyaC.Domain.Entities;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace ArghyaC.Application.Helpers
 {
@@ -11,8 +13,9 @@ namespace ArghyaC.Application.Helpers
         const string _entryPoint = "Main";
         private static object[] _parameters = { "arghya" };
 
-        public static string CompileAndRun(string code)
+        public static CodeRunResult CompileAndRun(string code)
         {
+            var result = new CodeRunResult();
             try
             {
                 var compilationResult = new CSharpCompiler().Compile(code);
@@ -24,15 +27,21 @@ namespace ArghyaC.Application.Helpers
                     var folder = assFileInfo.Directory.FullName;
                     var assembly = assFileInfo.FullName;
 
-                    var result = UntrustedCodeProcessor.GetResult<int>(folder, assembly, _untrustedClass, _entryPoint, _parameters);
-                    return result.ToString();
+                    var outcome = UntrustedCodeProcessor.GetResult<int>(folder, assembly, _untrustedClass, _entryPoint, _parameters);
+                    result.State = Domain.Enums.CodeCompState.Compiled;
                 }
-                return string.Join(". \n", compilationResult.Errors);
+                else
+                {
+                    result.State = Domain.Enums.CodeCompState.DidNotCompile;
+                    result.CompileErrors = compilationResult.Errors.ToList();
+                }
             }
             catch (Exception ex)
             {
-                return "Did not complete! Exception - " + ex.Message;
+                result.Message = "Did not complete! Exception - " + ex.Message;
+                result.State = Domain.Enums.CodeCompState.Exception;
             }
+            return result;
         }
     }
 }

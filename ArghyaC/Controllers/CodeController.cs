@@ -16,7 +16,7 @@ namespace ArghyaC.Controllers
         {
             var result = CodeRunner.CompileAndRun(code);
 
-            return View(new CodeRunResult());
+            return View(result);
         }
     }
 }
