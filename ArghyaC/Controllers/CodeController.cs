@@ -9,8 +9,8 @@ namespace ArghyaC.Controllers
     {
         public ActionResult Index()
         {
-            var code = 
-@"//Do NOT change the namespace &amp; class name `Program` and `Main` method signature
+            var code = @"
+//Do NOT change the namespace &amp; class name `Program` and `Main` method signature
 using System;
 using System.Collections.Generic;
 using System.Linq;
