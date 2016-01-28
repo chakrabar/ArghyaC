@@ -47,7 +47,7 @@ namespace CodeComp
         <div class="form-group col-md-12">
             @if (Model.State != ArghyaC.Domain.Enums.CodeCompState.None)
             {
-                <strong>@Html.Raw(Model.State.ToString())</strong>
+                <strong>@Html.Raw(Model.State.ToString() + Model.Message)</strong>
             }
         </div>
     </div>
