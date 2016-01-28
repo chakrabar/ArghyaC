@@ -70,8 +70,16 @@ namespace ArghyaC.Application.Helpers
             var sw = new Stopwatch();
             foreach (var testCase in testCases)
             {
-                sw.Start();
-                var outcome = executor(new object[] { testCase.Item1, testCase.Item2 }); //TODO: create app domain once and run all cases
+                var outcome = 0;
+                try
+                {
+                    sw.Start();
+                    outcome = executor(new object[] { testCase.Item1, testCase.Item2 }); //TODO: create app domain once and run all cases                    
+                }
+                catch(Exception ex)
+                {
+                    outcome = -100;
+                }
                 sw.Stop(); //TODO: this time is not correct. includes setup & teardown times
                 var isPass = outcome == testCase.Item3;
                 results.Add(new TestCaseResult { IsCorrect = isPass, Milliseconds = sw.ElapsedMilliseconds, Message = "Testcase " + (isPass ? "Passed" : "Failed") });
