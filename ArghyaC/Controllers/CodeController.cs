@@ -9,7 +9,25 @@ namespace ArghyaC.Controllers
     {
         public ActionResult Index()
         {
-            return View(new CodeRunResult());
+            var code = 
+@"//Do NOT change the namespace &amp; class name `Program` and `Main` method signature
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace CodeComp
+{
+    public class Program
+    {
+        public static int Main(string name)
+        {
+            return name.Length;
+        }
+    }
+    //other classes if required
+}";
+            return View(new CodeRunResult { Code = code });
         }
 
         [HttpPost]
@@ -21,6 +39,7 @@ namespace ArghyaC.Controllers
             var result = FileUtilities.TempCreateDirAndExecute<CodeRunResult>(tempFolder, 
                 () => { return CodeRunner.CompileAndRun(code, tempFolder); });
 
+            result.Code = code;
             return View(result);
         }
     }

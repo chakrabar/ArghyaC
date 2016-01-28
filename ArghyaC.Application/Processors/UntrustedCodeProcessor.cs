@@ -14,38 +14,50 @@ namespace ArghyaC.Application.Processors
     {
         public static T GetResult<T>(string untrustedAssemblyDirectory, string assemblyFullPath, string className, string methodName, object[] methodParameters)
         {
-            //Setting the AppDomainSetup. It is very important to set the ApplicationBase to a folder 
-            //other than the one in which the sandboxer resides.
-            AppDomainSetup adSetup = new AppDomainSetup();
-            adSetup.ApplicationBase = Path.GetFullPath(untrustedAssemblyDirectory);
+            AppDomain newDomain = null;
+            try
+            {
+                //Setting the AppDomainSetup. It is very important to set the ApplicationBase to a folder 
+                //other than the one in which the sandboxer resides.
+                AppDomainSetup adSetup = new AppDomainSetup();
+                adSetup.ApplicationBase = Path.GetFullPath(untrustedAssemblyDirectory);
 
-            //Setting the permissions for the AppDomain. We give the permission to execute and to 
-            //read/discover the location where the untrusted code is loaded.
-            PermissionSet permSet = new PermissionSet(PermissionState.None);
-            permSet.AddPermission(new SecurityPermission(SecurityPermissionFlag.Execution));
-            permSet.AddPermission(new FileIOPermission(FileIOPermissionAccess.AllAccess, untrustedAssemblyDirectory)); //** watch out
+                //Setting the permissions for the AppDomain. We give the permission to execute and to 
+                //read/discover the location where the untrusted code is loaded.
+                PermissionSet permSet = new PermissionSet(PermissionState.None);
+                permSet.AddPermission(new SecurityPermission(SecurityPermissionFlag.Execution));
+                permSet.AddPermission(new FileIOPermission(FileIOPermissionAccess.AllAccess, untrustedAssemblyDirectory)); //** watch out
 
-            //We want the sandboxer assembly's strong name, so that we can add it to the full trust list.
-            StrongName fullTrustAssembly = typeof(UntrustedCodeProcessor).Assembly.Evidence.GetHostEvidence<StrongName>();
-            //add strong name here http://stackoverflow.com/questions/8349573/getting-null-from-gethostevidence/10843860#10843860
+                //We want the sandboxer assembly's strong name, so that we can add it to the full trust list.
+                StrongName fullTrustAssembly = typeof(UntrustedCodeProcessor).Assembly.Evidence.GetHostEvidence<StrongName>();
+                //add strong name here http://stackoverflow.com/questions/8349573/getting-null-from-gethostevidence/10843860#10843860
 
-            //Now we have everything we need to create the AppDomain, so let's create it.
-            AppDomain newDomain = AppDomain.CreateDomain("UntrustedCodeProcessor", null, adSetup, permSet, fullTrustAssembly);
+                //Now we have everything we need to create the AppDomain, so let's create it.
+                newDomain = AppDomain.CreateDomain("UntrustedCodeProcessor", null, adSetup, permSet, fullTrustAssembly);
 
-            //Use CreateInstanceFrom to load an instance of the Sandboxer class into the
-            //new AppDomain. 
-            ObjectHandle handle = Activator.CreateInstanceFrom(
-                newDomain, typeof(UntrustedCodeProcessor).Assembly.ManifestModule.FullyQualifiedName,
-                typeof(UntrustedCodeProcessor).FullName
-                ); //** here it wants to be [Serializable]. made MarshalByRefObject as per http://stackoverflow.com/questions/29550474/sandboxing-untrusted-code-in-c-security-permissions-seem-not-working
+                //Use CreateInstanceFrom to load an instance of the Sandboxer class into the
+                //new AppDomain. 
+                ObjectHandle handle = Activator.CreateInstanceFrom(
+                    newDomain, typeof(UntrustedCodeProcessor).Assembly.ManifestModule.FullyQualifiedName,
+                    typeof(UntrustedCodeProcessor).FullName
+                    ); //** here it wants to be [Serializable]. made MarshalByRefObject as per http://stackoverflow.com/questions/29550474/sandboxing-untrusted-code-in-c-security-permissions-seem-not-working
 
-            //Unwrap the new domain instance into a reference in this domain and use it to execute the 
-            //untrusted code.
-            UntrustedCodeProcessor newDomainInstance = (UntrustedCodeProcessor)handle.Unwrap();
-            var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
-            AppDomain.Unload(newDomain); //otherwise root directory cannot be deleted!
+                //Unwrap the new domain instance into a reference in this domain and use it to execute the 
+                //untrusted code.
+                UntrustedCodeProcessor newDomainInstance = (UntrustedCodeProcessor)handle.Unwrap();
+                var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
 
-            return details;
+                return details;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (newDomain != null)
+                    AppDomain.Unload(newDomain); //otherwise root directory cannot be deleted!
+            }            
         }
 
         private T ExecuteUntrustedCode<T>(string assemblyName, string typeName, string entryPoint, Object[] parameters)
