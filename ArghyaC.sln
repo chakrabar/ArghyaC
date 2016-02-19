@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArghyaC.Application", "Argh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArghyaC.Domain", "ArghyaC.Domain\ArghyaC.Domain.csproj", "{5EB9F911-6F9F-4A6D-893E-EF25026AB9C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArghyaC.CSharpRunner", "ArghyaC.CSharpRunner\ArghyaC.CSharpRunner.csproj", "{60015FCA-5070-45FF-8BA2-B6A860AF212E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5EB9F911-6F9F-4A6D-893E-EF25026AB9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EB9F911-6F9F-4A6D-893E-EF25026AB9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EB9F911-6F9F-4A6D-893E-EF25026AB9C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60015FCA-5070-45FF-8BA2-B6A860AF212E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60015FCA-5070-45FF-8BA2-B6A860AF212E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60015FCA-5070-45FF-8BA2-B6A860AF212E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60015FCA-5070-45FF-8BA2-B6A860AF212E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
