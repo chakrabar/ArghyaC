@@ -66,7 +66,13 @@ namespace ArghyaC.CSharpRunner
             //you can use Assembly.EntryPoint to get to the main function in an executable.
 
             var assembly = Assembly.LoadFrom(assemblyName);
-            var method = assembly.GetType(typeName).GetMethod(entryPoint);
+            var type = assembly.GetType(typeName);
+            if (type == null)
+                throw new ApplicationException(string.Format("The type `{0}` was not found in code!", typeName));
+            var method = type.GetMethod(entryPoint);
+            if (method == null)
+                throw new ApplicationException(string.Format("The method `{0}` was not found in code!", entryPoint));
+
             try
             {
                 //Now invoke the method.

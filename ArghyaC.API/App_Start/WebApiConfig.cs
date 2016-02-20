@@ -1,8 +1,11 @@
-﻿using System.Net.Http.Formatting;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace ArghyaC
+namespace ArghyaC.API
 {
     public static class WebApiConfig
     {
@@ -27,7 +30,6 @@ namespace ArghyaC
             //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             //config.Formatters.Remove(config.Formatters.XmlFormatter);
 
-            //NOTE: we have disabled XML response in global.asax
             config.Formatters.JsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("format", "json", "application/json"));
             config.Formatters.XmlFormatter.MediaTypeMappings.Add(new QueryStringMapping("format", "xml", "application/xml"));
             //config.Formatters.JsonFormatter.MediaTypeMappings.Add(new RequestHeaderMapping("Accept", "text/html", StringComparison.InvariantCultureIgnoreCase, true, "application/json"));

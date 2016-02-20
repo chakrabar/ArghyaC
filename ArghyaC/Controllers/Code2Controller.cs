@@ -2,8 +2,8 @@
 using ArghyaC.CSharpRunner.Types;
 using ArghyaC.Infrastructure.Utilities;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace ArghyaC.Controllers
 {
@@ -46,7 +46,7 @@ namespace CodeComp
         [HttpPost]
         public ActionResult Index(string code)
         {
-            var timestamp = System.DateTime.Now.ToString("yyyyMMdd_hh.mm.ss.fffffff");
+            var timestamp = System.DateTime.Now.ToString("yyyyMMdd_HH.mm.ss.fffffff");
             var tempFolder = Server.MapPath("~/SubmittedCode/Temp_" + timestamp);
 
             var result = FileUtilities.TempCreateDirAndExecute<CodeRunResult<string[]>>(tempFolder,
