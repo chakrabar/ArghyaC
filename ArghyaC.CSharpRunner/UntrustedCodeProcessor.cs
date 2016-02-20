@@ -81,7 +81,7 @@ namespace ArghyaC.CSharpRunner
                 (new PermissionSet(PermissionState.Unrestricted)).Assert();
                 if (ex is SecurityException) // || ex is TargetInvocationException << even for nulls!!
                 {
-                    expMsg = "There was a security issue! :\n" + ex.ToString();
+                    expMsg = "Some suspicious code was detected! :\n" + ex.ToString();
                 }
                 else
                 {

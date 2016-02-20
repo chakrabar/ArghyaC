@@ -6,11 +6,11 @@ namespace ArghyaC.CSharpRunner.Types
         public long Milliseconds { get; set; }
         public bool IsCorrect { get; set; }
         public string Message { get; set; }
+        public bool HasException { get; set; }
     }
 
     public class TestCaseResult<TResult> : TestCaseResult
     {
-        public TResult Output { get; set; }
-        public bool HasException { get; set; }
+        public TResult Output { get; set; }        
     }
 }

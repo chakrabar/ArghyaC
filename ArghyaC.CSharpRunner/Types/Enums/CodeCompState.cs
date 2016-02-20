@@ -7,7 +7,6 @@ namespace ArghyaC.CSharpRunner.Types.Enums
         Exception,
         DidNotCompile,
         Compiled,
-        TestCasesRun,
         PassedAllCases
     }
 }

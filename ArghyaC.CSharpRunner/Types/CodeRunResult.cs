@@ -21,6 +21,6 @@ namespace ArghyaC.CSharpRunner.Types
 
     public class CodeRunResult<TOutcome> : CodeRunResult
     {
-        public new IEnumerable<TestCaseResult<TOutcome>> TestCaseResults { get; set; }
+        public IEnumerable<TestCaseResult<TOutcome>> TestCaseResultsWithOutput { get; set; }
     }
 }

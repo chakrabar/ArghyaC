@@ -10,10 +10,10 @@ namespace ArghyaC.CSharpRunner
 {
     public class CodeRunner
     {
-        public static CodeRunResult CompileAndRun<TOutcome>(string code, string baseDirectory, object[] inputToMethod, 
+        public static CodeRunResult<TOutcome> CompileAndRun<TOutcome>(string code, string baseDirectory, object[] inputToMethod, 
                                                                 string qualifiedClassName = "CodeComp.Program", string entryPointMethod = "Main")
         {
-            var result = new CodeRunResult();
+            var result = new CodeRunResult<TOutcome>();
             try
             {
                 var compilationResult = new CSharpCompiler().Compile(code, baseDirectory);
@@ -29,8 +29,10 @@ namespace ArghyaC.CSharpRunner
                     //var testResults = TestCaseRunner.RunTests<int>(o => { return UntrustedCodeProcessor.GetResult<int>((folder, assembly, qualifiedClassName, entryPointMethod, o); });
                     var testResults = TestCaseRunner.RunTestCase<TOutcome>(o => { return UntrustedCodeProcessor.GetResult<TOutcome>(folder, assembly, qualifiedClassName, entryPointMethod, o); }, inputToMethod);
 
-                    result.TestCaseResults = new List<TestCaseResult> { testResults };
-                    result.State = CodeCompState.TestCasesRun;
+                    result.TestCaseResults = new List<TestCaseResult<TOutcome>> { testResults };
+                    result.TestCaseResultsWithOutput = new List<TestCaseResult<TOutcome>> { testResults };
+                    result.Message = testResults.HasException ? testResults.Message : "Compiled and ran";
+                    result.State = testResults.HasException ? CodeCompState.Exception : CodeCompState.Compiled;
                 }
                 else
                 {

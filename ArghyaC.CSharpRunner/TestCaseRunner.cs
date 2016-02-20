@@ -21,9 +21,10 @@ namespace ArghyaC.CSharpRunner
             catch (Exception ex)
             {
                 result.HasException = true;
+                result.Message = ex.Message;
             }
             sw.Stop(); //TODO: this time is not correct. This includes setup & teardown times
-            result = new TestCaseResult<TOutcome> { Milliseconds = sw.ElapsedMilliseconds, Output = outcome  };
+            result = new TestCaseResult<TOutcome> { Milliseconds = sw.ElapsedMilliseconds, Output = outcome, HasException = result.HasException, Message = result.Message  };
             return result;
         }
 
