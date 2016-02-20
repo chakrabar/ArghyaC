@@ -5,6 +5,7 @@ using System.Runtime.Remoting;
 using System.Security;
 using System.Security.Permissions;
 using System.Security.Policy;
+using System.Timers;
 
 namespace ArghyaC.CSharpRunner
 {
@@ -12,7 +13,7 @@ namespace ArghyaC.CSharpRunner
     //[Serializable] << this was the ass ruining my life!!!**
     class UntrustedCodeProcessor : MarshalByRefObject
     {
-        internal static T GetResult<T>(string untrustedAssemblyDirectory, string assemblyFullPath, string className, string methodName, object[] methodParameters)
+        internal static T GetResult<T>(string untrustedAssemblyDirectory, string assemblyFullPath, string className, string methodName, object[] methodParameters, int timeoutMilli = 1000)
         {
             AppDomain newDomain = null;
             try
@@ -46,7 +47,16 @@ namespace ArghyaC.CSharpRunner
                 //untrusted code.
                 UntrustedCodeProcessor newDomainInstance = (UntrustedCodeProcessor)handle.Unwrap();
 
-                var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters);
+                //newDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(200));
+
+                //Timer timer = new Timer(timeoutMilli);
+                ////System.Threading.Timer timer = new System.Threading.Timer(new System.Threading.TimerCallback())
+                ////timer.Elapsed += ((obj, evnt) => { throw new TimeoutException("Code execution timed out"); });
+                ////timer.Elapsed += OnTimedEvent;
+                //timer.AutoReset = false;
+                //timer.Enabled = true;
+
+                var details = newDomainInstance.ExecuteUntrustedCode<T>(assemblyFullPath, className, methodName, methodParameters, timeoutMilli);
                 return details;
             }
             catch (Exception ex)
@@ -60,7 +70,34 @@ namespace ArghyaC.CSharpRunner
             }
         }
 
-        private T ExecuteUntrustedCode<T>(string assemblyName, string typeName, string entryPoint, Object[] parameters)
+        private static void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                throw new TimeoutException("Code execution timed out");
+            }
+            catch (Exception exception)
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem(
+                    _ => { throw new Exception("Code execution timed out", exception); });
+            }
+        }
+
+        //VS is failing here!
+        //private static void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        throw new TimeoutException("Code execution timed out");
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        System.Threading.ThreadPool.QueueUserWorkItem(
+        //            _ => { throw new Exception("Code execution timed out", exception); });
+        //    }
+        //}
+
+        private T ExecuteUntrustedCode<T>(string assemblyName, string typeName, string entryPoint, Object[] parameters, int timeoutMilli)
         {
             //Load the MethodInfo for a method in the new Assembly. This might be a method you know, or 
             //you can use Assembly.EntryPoint to get to the main function in an executable.
@@ -75,6 +112,11 @@ namespace ArghyaC.CSharpRunner
 
             try
             {
+                //Timer timer = new Timer(timeoutMilli);
+                //timer.Elapsed += ((obj, evnt) => { throw new TimeoutException("Code execution timed out"); });
+                //timer.AutoReset = false;
+                //timer.Enabled = true;
+
                 //Now invoke the method.
                 T retVal = (T)method.Invoke(null, parameters);
                 return retVal;

@@ -25,9 +25,9 @@ namespace ArghyaC.CSharpRunner
                     var folder = assFileInfo.Directory.FullName;
                     var assembly = assFileInfo.FullName;
 
-                    //var outcome = UntrustedCodeProcessor.GetResult<int>(folder, assembly, qualifiedClassName, entryPointMethod, _parameters);
-                    //var testResults = TestCaseRunner.RunTests<int>(o => { return UntrustedCodeProcessor.GetResult<int>((folder, assembly, qualifiedClassName, entryPointMethod, o); });
-                    var testResults = TestCaseRunner.RunTestCase<TOutcome>(o => { return UntrustedCodeProcessor.GetResult<TOutcome>(folder, assembly, qualifiedClassName, entryPointMethod, o); }, inputToMethod);
+                    //var testResults = TestCaseRunner.RunTestCase<TOutcome>(o => { return UntrustedCodeProcessor.GetResult<TOutcome>(folder, assembly, qualifiedClassName, entryPointMethod, o); }, inputToMethod);
+                    //running with timeout
+                    var testResults = TestCaseRunner.RunTestCaseWithHardTimeout<TOutcome>(o => { return UntrustedCodeProcessor.GetResult<TOutcome>(folder, assembly, qualifiedClassName, entryPointMethod, o); }, inputToMethod);
 
                     result.TestCaseResults = new List<TestCaseResult<TOutcome>> { testResults };
                     result.TestCaseResultsWithOutput = new List<TestCaseResult<TOutcome>> { testResults };

@@ -32,7 +32,7 @@ namespace ArghyaC.ApiControllers
             //var tempFolder = Server.MapPath("~/SubmittedCode/Temp_" + timestamp);
 
             var input = new object[] { m, n, x, y, d };
-            code = code.Replace("\\n", "" + System.Environment.NewLine);
+            code = code.Replace("\\r\\n", "" + System.Environment.NewLine);
             var result = FileUtilities.TempCreateDirAndExecute<CodeRunResult<string[]>>(tempFolder,
                 () => { return CodeRunner.CompileAndRun<string[]>(code, tempFolder, input); });
 
