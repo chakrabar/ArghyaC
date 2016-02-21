@@ -27,6 +27,9 @@ namespace ArghyaC.CSharpRunner.Compiler
         const string _keyword2 = "unsafe"; //no pinters please
         const string _keyword3 = "byte*";
 
+        const string _thread1 = "Thread";
+        const string _thread2 = "Task";
+
         List<string> _texts = null;
 
         public IEnumerable<string> Texts
